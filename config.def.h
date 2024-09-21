@@ -1,3 +1,5 @@
+#include <X11/XF86keysym.h>
+// to make multimedia keys work
 /* See LICENSE file for copyright and license details. */
 
 /* appearance */
@@ -58,13 +60,23 @@ static const Layout layouts[] = {
 /* commands */
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
 static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", col_gray1, "-nf", col_gray3, "-sb", col_cyan, "-sf", col_gray4, NULL };
-static const char *termcmd[]  = { "st", NULL };
+static const char *termcmd[]  = { "kitty", NULL };
+static const char *browsercmd[] = { "librewolf", NULL };
+// From arch wiki for volumekeys
+static const char *up_vol[]   = { "pactl", "set-sink-volume", "@DEFAULT_SINK@", "+10%",   NULL };
+static const char *down_vol[] = { "pactl", "set-sink-volume", "@DEFAULT_SINK@", "-10%",   NULL };
+static const char *mute_vol[] = { "pactl", "set-sink-mute",   "@DEFAULT_SINK@", "toggle", NULL };
+// Same for brightness
+static const char *brighter[] = { "brightnessctl", "set", "10%+", NULL };
+static const char *dimmer[]   = { "brightnessctl", "set", "10%-", NULL };
 
 static const Key keys[] = {
 	/* modifier                     key        function        argument */
 	{ MODKEY,                       XK_p,      spawn,          {.v = dmenucmd } },
 	{ MODKEY|ShiftMask,             XK_Return, spawn,          {.v = termcmd } },
-	{ MODKEY,                       XK_b,      togglebar,      {0} },
+	// modified from togglebar
+	{ MODKEY|ShiftMask,             XK_b,      spawn,          {.v = browsercmd } },
+        { MODKEY,                       XK_b,      togglebar,      {0} },
 	{ MODKEY,                       XK_j,      focusstack,     {.i = +1 } },
 	{ MODKEY,                       XK_k,      focusstack,     {.i = -1 } },
 	{ MODKEY,                       XK_i,      incnmaster,     {.i = +1 } },
@@ -95,6 +107,11 @@ static const Key keys[] = {
 	TAGKEYS(                        XK_8,                      7)
 	TAGKEYS(                        XK_9,                      8)
 	{ MODKEY|ShiftMask,             XK_q,      quit,           {0} },
+	{ 0, XF86XK_AudioMute,        spawn, {.v = mute_vol } },
+        { 0, XF86XK_AudioLowerVolume, spawn, {.v = down_vol } },
+        { 0, XF86XK_AudioRaiseVolume, spawn, {.v = up_vol } },
+	{ 0, XF86XK_MonBrightnessDown, spawn, {.v = dimmer } },
+        { 0, XF86XK_MonBrightnessUp,   spawn, {.v = brighter } },
 };
 
 /* button definitions */
