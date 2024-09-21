@@ -46,3 +46,8 @@ Configuration
 -------------
 The configuration of dwm is done by creating a custom config.h
 and (re)compiling the source code.
+
+Added by me
+-----------
+Dont forget to add "xinput disable 10 &" to your .xinitrc
+DWM doesn't like relative paths as command parameters. The screenshot constant uses an absolute path; change it if you have a different username.
