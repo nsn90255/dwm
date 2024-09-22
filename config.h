@@ -63,6 +63,7 @@ static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() 
 static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", col_gray1, "-nf", col_gray3, "-sb", col_cyan, "-sf", col_gray4, NULL };
 static const char *termcmd[]  = { "kitty", NULL };
 static const char *browsercmd[] = { "librewolf", NULL };
+static const char *file_explorer[] = { "dolphin", NULL };
 // From arch wiki for volumekeys
 static const char *up_vol[]   = { "pactl", "set-sink-volume", "@DEFAULT_SINK@", "+5%",   NULL };
 static const char *down_vol[] = { "pactl", "set-sink-volume", "@DEFAULT_SINK@", "-5%",   NULL };
@@ -79,6 +80,8 @@ static const Key keys[] = {
 	{ MODKEY|ShiftMask,             XK_Return,                 spawn,          {.v = termcmd } },
 	// modified from togglebar
 	{ MODKEY|ShiftMask,             XK_b,                      spawn,          {.v = browsercmd } },
+	// File explorer
+	{ MODKEY|ShiftMask,             XK_a,                      spawn,          {.v = file_explorer } },
         { MODKEY,                       XK_b,                      togglebar,      {0} },
 	{ MODKEY,                       XK_j,                      focusstack,     {.i = +1 } },
 	{ MODKEY,                       XK_k,                      focusstack,     {.i = -1 } },
