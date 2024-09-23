@@ -73,6 +73,7 @@ static const char *brighter[] = { "brightnessctl", "set", "10%+", NULL };
 static const char *dimmer[]   = { "brightnessctl", "set", "10%-", NULL };
 // Screenshot with scrot
 static const char *screenshot[] = { "scrot", "/home/hugo/Pictures/Screenshots/%Y-%m-%d-%T-screenshot.jpg", NULL };
+static const char *screenlock[] = { "xlock", NULL };
 
 static const Key keys[] = {
 	/* modifier                     key                        function        argument */
@@ -119,6 +120,8 @@ static const Key keys[] = {
 	{ 0,                            XF86XK_MonBrightnessDown,  spawn,          {.v = dimmer } },
         { 0,                            XF86XK_MonBrightnessUp,    spawn,          {.v = brighter } },
 	{ 0,                            XK_Print,                  spawn,          {.v = screenshot } },
+	// Lock screen
+	{ MODKEY|ShiftMask,             XK_l,                      spawn,          {.v = screenlock } },
 };
 
 /* button definitions */
